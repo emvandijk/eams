@@ -1,2 +1,3 @@
-# eams
+# EAMS
+
 Extensible Aeronautical Modelling System
