@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+
+title Vehicle Model
+
+namespace eams {
+
+interface Vehicle {
+    + {abstract} step()
+    + {abstract} reset()
+}
+
+interface VehicleCreator {
+    + {abstract} create() : Vehicle
+}
+
+interface VehicleConfig {
+    + {abstract} load()
+}
+
+class BasicVehicle {
+    + step()
+    + reset()
+}
+
+class BasicVehicleCreator {
+    +create() : Vehicle
+}
+
+eams.VehicleCreator <.. eams.Vehicle
+eams.VehicleCreator <|.. eams.BasicVehicleCreator
+
+eams.Vehicle o-- eams.VehicleConfig
+eams.Vehicle <.. eams.BasicVehicleCreator
+eams.Vehicle <|.. eams.BasicVehicle
+
+eams.BasicVehicleCreator ..> eams.BasicVehicle : creates
+
+@enduml

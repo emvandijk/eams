@@ -1,0 +1,56 @@
+@startuml
+!include style.puml
+
+title Traffic Model
+
+
+'Classes'
+namespace eams {
+
+interface Vehicle {
+    + step()
+    + reset()
+    + state() : StateData
+}
+
+interface Component {
+    + {abstract} step()
+    + {abstract} reset()
+}
+
+interface ComponentCreator {
+    + create() : Component
+}
+
+interface ComponentConfig {
+    + {abstract} load()
+}
+
+interface VehicleCreator {
+    + create() : Vehicle
+}
+
+interface VehicleConfig {
+    + {abstract} load()
+}
+
+class Traffic {
+    + step()
+    + reset()
+}
+
+'Association'
+eams.ComponentCreator ..> eams.Component : creates
+eams.ComponentConfig "0..1" --o eams.Component
+eams.ComponentCreator --o eams.Vehicle
+eams.Component "0..*" --* eams.Vehicle
+
+eams.Vehicle "0..*" --* eams.Traffic
+eams.VehicleConfig "0..1" --o eams.Vehicle
+eams.VehicleCreator ..> eams.Vehicle : creates
+eams.VehicleCreator --o eams.Traffic
+}
+
+
+
+@enduml

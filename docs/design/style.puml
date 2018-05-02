@@ -1,0 +1,23 @@
+@startuml
+
+skinparam class {
+    Backgroundcolor Gray
+    ArrowColor Black
+    BorderColor Black
+}
+
+skinparam package {
+    BackgroundColor DarkGray
+}
+
+hide empty members
+hide private fields
+
+namespace test {
+class Test {
+
+}
+}
+hide test.Test
+
+@enduml

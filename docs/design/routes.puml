@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+
+title Route Model
+
+
+class eams.Position {
+    + latitude : double
+    + longitude : double
+    + altitude : Altitude
+}
+
+class eams.Pathpoint {
+    + next() : PathPoint
+    + previous() : PathPoint
+}
+
+interface eams.Vehicle {
+
+}
+
+interface eams.Route {
+
+}
+
+interface eams.RouteCreator {
+
+}
+
+class eams.RouteContainer {
+
+}
+
+eams.Route *-- "2..*" eams.Pathpoint
+eams.Route --o "0..*" eams.Vehicle : references
+eams.RouteCreator ..> eams.Route : creates
+eams.RouteContainer --* "0..*" eams.Route : owns
+eams.RouteContainer ..> eams.RouteCreator : uses
+eams.Pathpoint *-- "+position" eams.Position
+
+@enduml

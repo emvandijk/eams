@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+
+title State 
+
+class eams.Vector3D {
+    + x : double
+    + y : double
+    + z : double
+}
+
+class eams.Kinematics {
+    + pos : Vector3D
+    + vel : Vector3D
+    + acc : Vector3D
+}
+
+class eams.Inertia {
+    + xx : double
+    + xy : double
+    + xz : double
+    + yy : double
+    + yz : double
+    + zz : double
+}
+
+class eams.State {
+    + linear : Kinematics
+    + angular : Kinematics
+    + force : Vector3D
+    + moment : Vector3D
+    + inertia : Inertia
+    + mass : double
+}
+
+class eams.Vehicle {
+    + state() : State
+}
+
+eams.Inertia --* eams.State
+eams.Kinematics --* eams.State
+eams.Vector3D ..> eams.Kinematics
+eams.Vector3D ..> eams.State
+eams.State --* eams.Vehicle
+
+@enduml

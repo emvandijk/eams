@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+
+title Component Model
+
+namespace eams {
+
+interface Component {
+    + {abstract} step()
+    + {abstract} reset()
+    + {abstract} mass() : double
+    + {abstract} inertia() : InertiaData
+    + {abstract} force() : Vector3D
+    + {abstract} moment() : Vector3D
+}
+
+interface ComponentCreator {
+    + {abstract} create() : Component
+}
+
+interface ComponentConfig {
+    + {abstract} load()
+}
+
+class BasicComponent {
+    + step()
+    + reset()
+}
+
+class BasicComponentCreator {
+    +create() : Component
+}
+
+eams.ComponentCreator <.. eams.Component
+eams.ComponentCreator <|.. eams.BasicComponentCreator
+
+eams.Component o-- eams.ComponentConfig
+eams.Component <.. eams.BasicComponentCreator
+eams.Component <|.. eams.BasicComponent
+
+eams.BasicComponentCreator ..> eams.BasicComponent : creates
+
+@enduml
